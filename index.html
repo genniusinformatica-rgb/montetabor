@@ -2,11 +2,47 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://retreat-knight-ultimately-guests.trycloudflare.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acampamento Monte Tabor</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Segoe UI',sans-serif; background:linear-gradient(135deg,#1a1a2e,#722f37); min-height:100vh; display:flex; align-items:center; justify-content:center; }
+        .card { background:#fffaf0; border-radius:20px; padding:40px; text-align:center; max-width:420px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+        .card h1 { color:#722f37; font-size:24px; margin-bottom:6px; }
+        .card p { color:#666; font-size:14px; margin-bottom:20px; }
+        .spinner { width:40px; height:40px; border:4px solid #c9a84c; border-top-color:#722f37; border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 16px; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .erro { color:#c0392b; font-size:13px; display:none; }
+        .rodape { color:#999; font-size:12px; margin-top:20px; }
+    </style>
 </head>
 <body>
-    <p>Redirecionando para <a href="https://retreat-knight-ultimately-guests.trycloudflare.com">https://retreat-knight-ultimately-guests.trycloudflare.com</a>...</p>
+    <div class="card">
+        <div class="spinner" id="spinner"></div>
+        <h1>Acampamento Monte Tabor</h1>
+        <p id="status">Conectando ao servidor...</p>
+        <p class="erro" id="erro">Servidor temporariamente offline.<br>Tentando novamente em alguns segundos...</p>
+        <div class="rodape">⏳ Atualização automática</div>
+    </div>
+    <script>
+        var url = "https://claimed-enhanced-measurements-prepare.trycloudflare.com";
+        function tentar() {
+            document.getElementById('spinner').style.display = 'block';
+            document.getElementById('status').textContent = 'Conectando ao servidor...';
+            document.getElementById('erro').style.display = 'none';
+            var x = new XMLHttpRequest();
+            x.timeout = 8000;
+            x.onload = function() { if (x.status >= 200 && x.status < 400) window.location.href = url; else falhou(); };
+            x.ontimeout = falhou; x.onerror = falhou;
+            x.open('GET', url + '?health=' + Date.now()); x.send();
+        }
+        function falhou() {
+            document.getElementById('spinner').style.display = 'none';
+            document.getElementById('status').textContent = 'Servidor offline';
+            document.getElementById('erro').style.display = 'block';
+            setTimeout(tentar, 5000);
+        }
+        tentar();
+    </script>
 </body>
 </html>
